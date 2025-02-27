@@ -17,7 +17,7 @@ function App() {
           </Suspense>
         </div>
         <ProfileCard />
-        {/* <ThemeToggle /> */}
+        <ThemeToggle />
       </div>
     </ErrorBoundary>
   );

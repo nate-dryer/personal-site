@@ -94,7 +94,7 @@ function ProfileCard() {
                 src={profileImage}
                 alt="Nate Dryer - Product Manager and AI & ML Innovator"
                 className="w-full object-cover transition-transform duration-300 hover:scale-105"
-                style={{ objectPosition: "center 7px", transform: "scale(0.91)" }}
+                style={{ objectPosition: "35% 38%", transform: "scale(0.91)" }}
                 onError={(e) => {
                   // Try the public path as fallback before showing placeholder
                   e.target.src = profilePublicPath;

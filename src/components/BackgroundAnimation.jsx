@@ -17,10 +17,10 @@ const BackgroundAnimation = () => {
       accent: 'rgba(139, 92, 246, 0.5)'
     },
     light: {
-      // Enhanced contrast for light mode particles
-      primary: 'rgba(37, 99, 235, 0.7)',
-      secondary: 'rgba(79, 70, 229, 0.7)',
-      accent: 'rgba(124, 58, 237, 0.7)'
+      // Medium-toned indigo-purple particles for enhanced visibility
+      primary: 'rgba(79, 70, 229, 0.75)',  // Richer indigo
+      secondary: 'rgba(99, 102, 241, 0.75)', // Medium indigo
+      accent: 'rgba(124, 58, 237, 0.75)'     // Medium-toned purple
     }
   }), []);
 
