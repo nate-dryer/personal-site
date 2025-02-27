@@ -1,0 +1,544 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@400..900&display=swap');
+
+/* Custom font classes for Tailwind */
+.font-outfit {
+  font-family: 'Outfit', sans-serif;
+}
+
+@layer base {
+  :root {
+    /* Dark mode variables */
+    --background: 222 35% 18%;
+    --background-alt: 222 40% 25%;
+    --foreground: 220 60% 90%;
+    --tagline: 220 50% 70%;
+    --card: 222 47% 22%;
+    --accent: 217 91% 60%;
+    --accent-indigo: 235 75% 60%; /* Indigo accent for dark mode */
+    --accent-purple: 265 75% 60%; /* Purple accent for particles */
+    --gray-700: 220 17% 30%;
+    --gray-300: 220 17% 70%;
+    /* Cursor position variables - initialized at center */
+    --cursor-x: 50%;
+    --cursor-y: 50%;
+  }
+
+  :root:not(.dark) {
+    /* Modern light mode with better contrast */
+    --background: 215 40% 92%;
+    --background-alt: 215 40% 85%;
+    /* Slightly off-white card for reduced eye strain */
+    --card: 210 20% 98%;
+    --foreground: 222 85% 18%;  /* Darker text for better contrast */
+    --tagline: 222 75% 25%;
+    --accent: 222 85% 45%;
+    --accent-soft: 215 85% 55%; /* More vibrant blue accent for light mode */
+    --accent-purple: 265 85% 70%; /* Purple accent for particles */
+    --gray-700: 220 30% 25%;
+    --gray-300: 220 30% 60%;
+    /* Gradient variables for buttons */
+    --card-gradient-from: 215 80% 50%;
+    --card-gradient-to: 265 80% 45%;
+  }
+
+  body {
+    font-family: 'Inter var', 'Inter', sans-serif;
+    min-height: 100vh;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    position: relative;
+    transition: background 0.3s ease;
+  }
+  
+  /* Common texture overlay for both modes */
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  /* Purple particles for both modes */
+  body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.6;
+    background-image: 
+      radial-gradient(circle at 15% 25%, rgba(139, 92, 246, 0.3) 0%, transparent 14px),
+      radial-gradient(circle at 85% 35%, rgba(139, 92, 246, 0.25) 0%, transparent 12px),
+      radial-gradient(circle at 25% 65%, rgba(139, 92, 246, 0.2) 0%, transparent 10px),
+      radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 16px),
+      radial-gradient(circle at 90% 10%, rgba(139, 92, 246, 0.25) 0%, transparent 14px),
+      radial-gradient(circle at 10% 90%, rgba(139, 92, 246, 0.28) 0%, transparent 12px),
+      radial-gradient(circle at 40% 10%, rgba(139, 92, 246, 0.22) 0%, transparent 8px),
+      radial-gradient(circle at 80% 50%, rgba(139, 92, 246, 0.18) 0%, transparent 10px);
+  }
+
+  /* Dark mode background - blue to purple gradient */
+  .dark {
+    background: linear-gradient(to bottom, #10132F 0%, #251C4A 100%);
+    color: hsl(var(--foreground));
+    background-image:
+      linear-gradient(to bottom, #10132F 0%, #251C4A 100%),
+      repeating-linear-gradient(45deg, rgba(99, 102, 241, 0.03) 0px, rgba(99, 102, 241, 0.03) 1px, transparent 1px, transparent 10px),
+      repeating-linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0px, rgba(139, 92, 246, 0.03) 1px, transparent 1px, transparent 10px);
+  }
+  
+  /* Dark mode texture overlay */
+  .dark body::before {
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.06) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 40%),
+      url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%238b5cf6' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M0 20L20 0L0 0zM20 40L40 20L40 40z'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+  
+  /* Dark mode purple particles overlay */
+  .dark body::after {
+    opacity: 0.4;
+    background-image: 
+      radial-gradient(circle at 15% 25%, rgba(139, 92, 246, 0.35) 0%, transparent 14px),
+      radial-gradient(circle at 85% 35%, rgba(139, 92, 246, 0.3) 0%, transparent 12px),
+      radial-gradient(circle at 25% 65%, rgba(139, 92, 246, 0.25) 0%, transparent 10px),
+      radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.4) 0%, transparent 16px),
+      radial-gradient(circle at 90% 10%, rgba(139, 92, 246, 0.3) 0%, transparent 14px),
+      radial-gradient(circle at 10% 90%, rgba(139, 92, 246, 0.35) 0%, transparent 12px),
+      radial-gradient(circle at 40% 10%, rgba(139, 92, 246, 0.28) 0%, transparent 8px),
+      radial-gradient(circle at 80% 50%, rgba(139, 92, 246, 0.25) 0%, transparent 10px);
+  }
+
+  /* Light mode cursor-aware background with blue-to-purple gradient */
+  :root:not(.dark) body {
+    background: #DCE4F3;
+    color: hsl(var(--foreground));
+    background-image:
+      linear-gradient(135deg, #DCE4F3 0%, #E4D7F5 100%),
+      repeating-linear-gradient(45deg, rgba(59, 89, 152, 0.04) 0px, rgba(59, 89, 152, 0.04) 1px, transparent 1px, transparent 10px),
+      repeating-linear-gradient(135deg, rgba(139, 92, 246, 0.04) 0px, rgba(139, 92, 246, 0.04) 1px, transparent 1px, transparent 10px);
+  }
+  
+  /* Light mode texture overlay */
+  :root:not(.dark) body::before {
+    background-image: 
+      radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.06) 0%, transparent 35%),
+      radial-gradient(circle at 70% 70%, rgba(139, 92, 246, 0.05) 0%, transparent 35%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%238b5cf6' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+  
+  /* Light mode purple particles overlay */
+  :root:not(.dark) body::after {
+    opacity: 0.4;
+    background-image: 
+      radial-gradient(circle at 15% 25%, rgba(139, 92, 246, 0.2) 0%, transparent 14px),
+      radial-gradient(circle at 85% 35%, rgba(139, 92, 246, 0.15) 0%, transparent 12px),
+      radial-gradient(circle at 25% 65%, rgba(139, 92, 246, 0.12) 0%, transparent 10px),
+      radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.25) 0%, transparent 16px),
+      radial-gradient(circle at 90% 10%, rgba(139, 92, 246, 0.18) 0%, transparent 14px),
+      radial-gradient(circle at 10% 90%, rgba(139, 92, 246, 0.22) 0%, transparent 12px),
+      radial-gradient(circle at 40% 10%, rgba(139, 92, 246, 0.15) 0%, transparent 8px),
+      radial-gradient(circle at 80% 50%, rgba(139, 92, 246, 0.12) 0%, transparent 10px);
+  }
+}
+
+@layer components {
+  /* Gradient placeholder for profile image */
+  .gradient-placeholder {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border: none !important;
+  }
+
+  /* Gradient text for buttons and elements */
+  .gradient-text, .gradient-text-secondary {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Gradient icons */
+  .gradient-icon {
+    stroke: url(#primaryGradient);
+  }
+  
+  .gradient-icon-secondary {
+    stroke: url(#secondaryGradient);
+  }
+
+  /* Enhanced glassmorphism with gradient effect */
+  .glass-effect {
+    @apply relative backdrop-blur-2xl rounded-[28px] border p-10 sm:p-12;
+    background: hsl(var(--card) / 0.7); /* More transparency */
+    border-color: hsl(var(--foreground) / 0.1);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    z-index: 1;
+    position: relative;
+    overflow: hidden; /* Important for inner pseudo-elements */
+  }
+  
+  /* Inner layered effect with subtle gradient */
+  .glass-effect::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-radius: inherit;
+    z-index: -1;
+  }
+  
+  .glass-effect::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0.5;
+  }
+
+  .dark .glass-effect {
+    background: linear-gradient(170deg, rgba(19, 25, 40, 0.7), rgba(33, 26, 58, 0.75));
+    backdrop-filter: blur(20px); /* Increased blur */
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.6),
+      0 2px 8px rgba(0, 0, 0, 0.4),
+      inset 0 2px 0 rgba(255, 255, 255, 0.05),
+      0 0 15px rgba(99, 102, 241, 0.25); /* Subtle glow */
+    background-image:
+      linear-gradient(125deg, rgba(79, 70, 229, 0.1) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(16, 23, 36, 0.8) 80%),
+      repeating-linear-gradient(45deg, rgba(99, 102, 241, 0.08) 0px, rgba(99, 102, 241, 0.08) 1px, transparent 1px, transparent 10px),
+      repeating-linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0px, rgba(139, 92, 246, 0.08) 1px, transparent 1px, transparent 10px);
+  }
+
+  :root:not(.dark) .glass-effect {
+    background: linear-gradient(170deg, rgba(245, 248, 252, 0.85), rgba(240, 238, 252, 0.95));
+    backdrop-filter: blur(16px); /* Increased blur */
+    border: 1px solid rgba(59, 89, 152, 0.4);
+    box-shadow:
+      0 10px 40px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(59, 130, 246, 0.15), /* Subtle glow */
+      0 20px 50px rgba(139, 92, 246, 0.1);
+    background-image:
+      linear-gradient(125deg, rgba(210, 225, 245, 0.95) 0%, rgba(220, 215, 245, 0.92) 70%),
+      linear-gradient(to right, rgba(140, 170, 215, 0.25) 0%, rgba(160, 185, 225, 0.25) 50%, rgba(140, 170, 215, 0.25) 100%),
+      repeating-linear-gradient(45deg, rgba(59, 89, 152, 0.09) 0px, rgba(59, 89, 152, 0.09) 1px, transparent 1px, transparent 10px),
+      repeating-linear-gradient(135deg, rgba(139, 92, 246, 0.07) 0px, rgba(139, 92, 246, 0.07) 1px, transparent 1px, transparent 10px);
+  }
+
+  :root:not(.dark) .glass-effect:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 25px 60px rgba(0, 0, 0, 0.1),
+      0 15px 30px rgba(139, 92, 246, 0.05);
+  }
+
+  /* Modern gradient buttons with improved contrast */
+  .gradient-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    border-radius: 0.75rem;
+    border-width: 1px;
+    border-style: solid;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 0.85rem 1.5rem;
+    height: 3.85rem; /* 10% taller than 3.5rem */
+    width: 135%; /* 35% wider */
+    max-width: 100%; /* To ensure it doesn't overflow container */
+  }
+  
+  /* Primary button styling */
+  .gradient-button.primary {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(99, 102, 241, 0.95));
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+    color: white;
+    font-weight: 600;
+  }
+  
+  /* Secondary button styling */
+  .gradient-button.secondary {
+    background: rgba(30, 41, 59, 0.7);
+    border-color: rgba(99, 102, 241, 0.3);
+    backdrop-filter: blur(5px);
+  }
+  
+  /* Contact button special styling */
+  .contact-button {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.7), rgba(139, 92, 246, 0.7));
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-button .contact-label {
+    background: linear-gradient(135deg, #ffffff, #e0e8ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent !important;
+    text-shadow: none;
+  }
+  
+  .contact-button .gradient-icon-secondary {
+    stroke: url(#primaryGradient);
+  }
+  
+  .contact-button:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(139, 92, 246, 0.8));
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.25);
+  }
+  
+  /* Button hover effects */
+  .gradient-button {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .gradient-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: inherit;
+  }
+  
+  .gradient-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .gradient-button:hover::before {
+    opacity: 1;
+  }
+  
+  .gradient-button.primary:hover {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(79, 70, 229, 0.98));
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+    transform: translateY(-3px);
+  }
+  
+  .gradient-button.secondary:hover {
+    background: rgba(30, 41, 59, 0.85);
+  }
+  
+  /* Light mode styling for gradient buttons */
+  :root:not(.dark) .gradient-button.primary {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(79, 70, 229, 0.95));
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.15), 0 2px 4px rgba(37, 99, 235, 0.1);
+    color: white;
+  }
+  
+/* Button styling for better appearance in light mode */
+:root:not(.dark) .gradient-button.secondary {
+  background: rgba(248, 250, 252, 0.7);
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+:root:not(.dark) .contact-button {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(139, 92, 246, 0.8));
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+:root:not(.dark) .contact-button .gradient-text-secondary {
+  background: linear-gradient(135deg, #ffffff, #f0f0ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+:root:not(.dark) .gradient-button.secondary:hover {
+  background: rgba(248, 250, 252, 0.9);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: rgba(99, 102, 241, 0.4);
+}
+  
+  /* Make sure button content is visible */
+  .gradient-button > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .photo-container {
+    @apply relative overflow-hidden;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border: 2px solid transparent;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .photo-container::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: hsl(var(--card));
+    border-radius: inherit;
+    z-index: 0;
+  }
+
+  .photo-container img {
+    position: relative;
+    z-index: 1;
+    height: 104%; /* Slightly taller to eliminate bottom gap */
+    margin-bottom: -3px; /* Further reduce any gap at bottom */
+    margin-top: -1px; /* Adjust top position slightly */
+  }
+
+  .photo-container:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.25);
+  }
+
+  h1 {
+  @apply font-medium;
+  font-family: 'Outfit', sans-serif;
+  font-variation-settings: "wght" 550;
+  transition: font-variation-settings 0.3s ease;
+  letter-spacing: 0.01em;
+}
+
+h1:hover {
+  font-variation-settings: "wght" 600;
+}
+  
+  /* Apply Outfit font to buttons for consistency */
+  button, .btn-primary {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  /* Interactive text elements */
+  .interactive-text {
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.3s ease;
+    font-variation-settings: "wght" 400;
+  }
+
+  .interactive-text:hover {
+    font-variation-settings: "wght" 600;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    color: transparent !important;
+  }
+  
+  .dark .interactive-text:hover {
+    background: linear-gradient(135deg, #4f46e5, #a855f7);
+    -webkit-background-clip: text;
+    color: transparent !important;
+  }
+
+  .gradient-header {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 6px rgba(107, 70, 193, 0.2);
+  }
+
+  .dark .gradient-header {
+    color: hsl(222, 35%, 85%);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+}
+
+:root:not(.dark) .gradient-header {
+  color: hsl(222, 35%, 85%);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Make SVG gradients available to the document */
+body:before {
+  content: '';
+  width: 0;
+  height: 0;
+  position: absolute;
+  overflow: hidden;
+}
+
+body svg:not(:root:not(.dark)) {
+  position: absolute;
+}
+
+/* SVG gradient definitions for icons */
+svg.gradient-defs {
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+/* Ensure particles are visible */
+canvas.particle-canvas {
+  pointer-events: auto !important;
+  z-index: 0 !important;
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
+/* Hide particle canvas on mobile devices */
+@media (max-width: 767px) {
+  canvas.particle-canvas {
+    display: none !important;
+  }
+}
+
+/* Light mode with improved contrast - darker card */
+:root:not(.dark) .glass-effect {
+  background: linear-gradient(170deg, 
+    rgba(240, 245, 255, 0.95), 
+    rgba(235, 240, 252, 0.9),
+    rgba(228, 235, 250, 0.95)
+  );
+  backdrop-filter: blur(16px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15),
+    0 1px 8px rgba(0, 0, 0, 0.08),
+    0 20px 50px rgba(139, 92, 246, 0.12);
+}
+
+:root:not(.dark) .gradient-text, 
+:root:not(.dark) .gradient-text-secondary {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Mobile-specific glass effects */
+@media (max-width: 767px) {
+  .glass-effect {
+    background: linear-gradient(170deg, 
+      rgba(30, 41, 59, 0.95), 
+      rgba(30, 41, 59, 0.92)
+    );
+  }
+  
+  :root:not(.dark) .glass-effect {
+    background: linear-gradient(170deg, 
+      rgba(240, 245, 255, 0.95), 
+      rgba(230, 235, 250, 0.92)
+    );
+  }
+}
